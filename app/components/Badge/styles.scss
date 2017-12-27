@@ -1,0 +1,13 @@
+.badge {
+  bottom: 10px;
+  left: 10px;
+  position: absolute;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.badge__image {
+  display: block;
+}
