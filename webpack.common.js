@@ -1,6 +1,9 @@
 const path = require('path')
 const webpack = require('webpack')
+
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CnameWebpackPlugin = require('cname-webpack-plugin')
 
 const IS_DEV = (process.env.NODE_ENV === 'dev')
 
@@ -8,13 +11,13 @@ const dirNode = 'node_modules'
 const dirApp = path.join(__dirname, 'app')
 const dirAssets = path.join(__dirname, 'assets')
 
-const title = 'Naturally Bizarre — Canvas Experiments'
+const title = 'Naturally Bizarre — LHBZR'
 const description = 'Experiments made by Luis Henrique Bizarro based on the series The Nature of Code by Daniel Shiffman.'
 
 module.exports = {
   entry: {
     vendor: [
-      'lodash'
+      'babel-polyfill'
     ],
     bundle: path.join(dirApp, 'index')
   },
@@ -37,9 +40,10 @@ module.exports = {
     }),
 
     new HtmlWebpackPlugin({
+      filename: 'index.html',
       template: path.join(__dirname, 'index.ejs'),
       title,
-      description
+      description,
     })
   ],
 
@@ -95,10 +99,16 @@ module.exports = {
       },
 
       {
-        test: /\.(jpe?g|png|gif)$/,
+        test: /\.(jpe?g|png|gif|svg|woff2?)$/,
         loader: 'file-loader',
         options: {
-          name: '[path][name].[ext]'
+          name (file) {
+            if (IS_DEV) {
+              return '[path][name].[ext]'
+            }
+
+            return '[hash].[ext]'
+          }
         }
       }
     ]

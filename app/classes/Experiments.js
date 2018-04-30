@@ -1,5 +1,5 @@
 import Colors from '../data/colors.json'
-import Stats from 'stats-js'
+import Stats from 'stats.js'
 import Vector from './Vector'
 
 export default class Experiments {

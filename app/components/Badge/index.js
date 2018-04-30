@@ -1,7 +1,7 @@
 import image from './image.png';
 import styles from './styles.scss';
 
-class BadgeManager {
+export default class Badge {
   constructor () {
     this.element = document.createElement('div')
     this.element.className = styles.badge
@@ -13,5 +13,3 @@ class BadgeManager {
     document.body.appendChild(this.element)
   }
 }
-
-export const Badge = new BadgeManager()

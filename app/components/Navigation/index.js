@@ -1,15 +1,13 @@
-import { App } from '../App'
-
 import styles from './styles.scss';
 
-class NavigationManager {
-  constructor () {
+export default class Navigation {
+  constructor (names) {
     this.element = document.createElement('nav')
     this.element.className = styles.navigation
 
     this.element.innerHTML = `
       <ul class="${styles.navigation__list}">
-        ${App.names.map(experiment => {
+        ${names.map(experiment => {
           return `
           <li class="${styles.navigation__item}">
             <a href="#${experiment}" class="${styles.navigation__button}">
@@ -26,14 +24,9 @@ class NavigationManager {
     }
 
     document.body.appendChild(this.element)
-
-    window.addEventListener('hashchange', this.onHashChange.bind(this))
-    window.addEventListener('load', this.onHashChange.bind(this))
   }
 
-  onHashChange () {
-    const hash = window.location.hash
-
+  onHashChange (hash) {
     this.elements.buttons.forEach(button => {
       if (button.getAttribute('href') === hash) {
         button.classList.add(styles['navigation__button--active'])
@@ -43,5 +36,3 @@ class NavigationManager {
     })
   }
 }
-
-export const Navigation = new NavigationManager()
